@@ -6,6 +6,8 @@ public class Program
     {
         var dbManager = new DatabaseManager();
         dbManager.InitializeDatabase();
-        Menu.DisplayMenu();
+
+        var menu = new Menu();
+        menu.CallMenu();
     }
 }
