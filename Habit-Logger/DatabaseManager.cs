@@ -26,5 +26,15 @@ namespace Habit_Logger
 
             command.ExecuteNonQuery();
         }
+
+        //public void InsertHabit(Habit habit)
+        //{
+        //    using var connection = new SqliteConnection(DataSource);
+
+        //    connection.Open();
+
+        //    using var command = connection.CreateCommand();
+        //    command.CommandText = @""
+        //}
     }
 }

@@ -7,8 +7,15 @@ namespace Habit_Logger
     internal class Habit
     {
         public int Id { get; init; }
-        public required string HabitName { get; set; }
+        public string HabitName { get; set; }
         public DateOnly Date { get; set; }
         public int Quantity { get; set; }
+
+        public Habit(string habitName, DateOnly date, int quantity)
+        {
+            HabitName = habitName;
+            Date = date;
+            Quantity = quantity;
+        }
     }
 }

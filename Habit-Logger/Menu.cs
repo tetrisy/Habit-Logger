@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml;
 
@@ -7,6 +8,12 @@ namespace Habit_Logger
 {
     internal class Menu
     {
+        private readonly DatabaseManager dbManager;
+        public Menu(DatabaseManager dbManager)
+        {
+            this.dbManager = dbManager;
+        }
+
         public void CallMenu()
         {
             int choice;
@@ -28,7 +35,7 @@ namespace Habit_Logger
         {
             Console.WriteLine("============== Habit Logger ==============");
             Console.WriteLine($"|{"|", 41}");
-            Console.WriteLine($"{"|",-8}{"1. sad",-33}|");
+            Console.WriteLine($"{"|",-8}{"1. Add new habbit",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
@@ -56,7 +63,7 @@ namespace Habit_Logger
             switch (choice)
             {
                 case 1:
-                    // Add habit
+                   // dbManager.InsertHabit(CreateHabit());
                     break;
                 case 2:
                     // View habits
@@ -75,6 +82,43 @@ namespace Habit_Logger
                     Console.ResetColor();
                     break;
             }
+        }
+
+        private Habit CreateHabit()
+        {
+            Console.Write("Enter habit name: ");
+            string? habitName = Console.ReadLine();
+            while(string.IsNullOrWhiteSpace(habitName))
+            {
+                Console.Write("Enter a valid habit name: ");
+                habitName = Console.ReadLine();
+            }
+
+            Console.Write("Enter date (dd-mm-yyyy). Enter today for today: ");
+            string? input = Console.ReadLine();
+            DateOnly checkedDate;
+            if (input == "today")
+            {
+                checkedDate = DateOnly.FromDateTime(DateTime.Now);
+            }else
+            {
+                while (!DateOnly.TryParseExact(input, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out checkedDate))
+                {
+                    Console.Write("Invalid input. Pleae enter a valid date: ");
+                    input = Console.ReadLine();
+                }
+            }
+
+            Console.Write("Enter quantity: ");
+            input = Console.ReadLine();
+            int habitQuantity;
+            while (!int.TryParse(input, out habitQuantity))
+            {
+                Console.Write("Invalid input. Pleae enter a valid quantity: ");
+                input = Console.ReadLine();
+            }
+
+            return new Habit(habitName, checkedDate, habitQuantity);
         }
     }
 }

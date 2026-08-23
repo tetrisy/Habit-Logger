@@ -7,7 +7,7 @@ public class Program
         var dbManager = new DatabaseManager();
         dbManager.InitializeDatabase();
 
-        var menu = new Menu();
+        var menu = new Menu(dbManager);
         menu.CallMenu();
     }
 }
