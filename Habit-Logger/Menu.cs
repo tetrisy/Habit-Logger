@@ -13,6 +13,7 @@ namespace Habit_Logger
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
+           
         }
     }
 }

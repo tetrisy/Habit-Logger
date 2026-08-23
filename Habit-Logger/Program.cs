@@ -4,6 +4,8 @@ public class Program
 {
     static void Main()
     {
+        var dbManager = new DatabaseManager();
+        dbManager.InitializeDatabase();
         Menu.DisplayMenu();
     }
 }
