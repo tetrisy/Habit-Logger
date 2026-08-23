@@ -19,6 +19,7 @@ namespace Habit_Logger
                 {
                     return;
                 }
+                Console.Clear();
                 ExecuteMenuOption(choice);
             }
         }
@@ -26,10 +27,12 @@ namespace Habit_Logger
         public void DisplayMenu()
         {
             Console.WriteLine("============== Habit Logger ==============");
+            Console.WriteLine($"|{"|", 41}");
             Console.WriteLine($"{"|",-8}{"1. sad",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
             Console.WriteLine($"{"|",-8}{"1. as",-33}|");
+            Console.WriteLine($"|{"|",41}");
             Console.WriteLine("==========================================");
         }
 
@@ -37,14 +40,15 @@ namespace Habit_Logger
         {
             Console.Write("Choose an option (1-5): ");
             string? choice = Console.ReadLine();
+            int output;
 
-            while (!int.TryParse(choice, out int output))
+            while (!int.TryParse(choice, out output))
             {
                 Console.Write("Invalid input. Pleae enter a valid number: ");
                 choice = Console.ReadLine();
             }
 
-            return Convert.ToInt32(choice);
+            return output;
         }
 
         private void ExecuteMenuOption(int choice)
@@ -65,6 +69,11 @@ namespace Habit_Logger
                     break;
                 case 0:
                     return;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid choice. Please choose between 0-4.");
+                    Console.ResetColor();
+                    break;
             }
         }
     }
