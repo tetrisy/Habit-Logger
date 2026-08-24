@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Microsoft.Data.Sqlite;
 
@@ -48,9 +49,25 @@ namespace Habit_Logger
 
         public List<Habit> GetHabits()
         {
+            var habits = new List<Habit>();
+
             using var connection = new SqliteConnection(DataSource);
 
-            return;
+            connection.Open();
+
+            using var command = connection.CreateCommand();
+            command.CommandText = @"
+                SELECT Id, HabitName, Date, Quantity FROM habits
+            ";
+
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                habits.Add(new Habit(reader.GetInt32(0), reader.GetString(1), DateOnly.ParseExact(reader.GetString(2), "dd-MM-yyyy", CultureInfo.InvariantCulture), reader.GetInt32(3)));
+            }
+
+            return habits;
         }
     }
 }

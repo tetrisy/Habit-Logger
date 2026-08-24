@@ -28,20 +28,21 @@ namespace Habit_Logger
                 }
                 Console.Clear();
                 ExecuteMenuOption(choice);
+                Console.Clear();
             }
         }
 
         public void DisplayMenu()
         {
-            Console.WriteLine("============== Habit Logger ==============");
-            Console.WriteLine($"|{"|", 41}");
-            Console.WriteLine($"{"|",-8}{"1. Add new habbit",-33}|");
-            Console.WriteLine($"{"|",-8}{"2. View habits",-33}|");
-            Console.WriteLine($"{"|",-8}{"3. Update habit",-33}|");
-            Console.WriteLine($"{"|",-8}{"4. Delete habit",-33}|");
-            Console.WriteLine($"{"|",-8}{"0. Exit",-33}|");
-            Console.WriteLine($"|{"|",41}");
-            Console.WriteLine("==========================================");
+            Console.WriteLine("================== Habit Logger ==================");
+            Console.WriteLine($"|{"|", 49}");
+            Console.WriteLine($"{"|",-8}{"1. Add new habbit",-41}|");
+            Console.WriteLine($"{"|",-8}{"2. View habits",-41}|");
+            Console.WriteLine($"{"|",-8}{"3. Update habit",-41}|");
+            Console.WriteLine($"{"|",-8}{"4. Delete habit",-41}|");
+            Console.WriteLine($"{"|",-8}{"0. Exit",-41}|");
+            Console.WriteLine($"|{"|",49}");
+            Console.WriteLine("==================================================");
         }
 
         private int GetUserChoice()
@@ -67,7 +68,7 @@ namespace Habit_Logger
                     dbManager.InsertHabit(CreateHabit());
                     break;
                 case 2:
-                    // View habits
+                    DisplayHabits();
                     break;
                 case 3:
                     // Delete habit
@@ -124,7 +125,19 @@ namespace Habit_Logger
 
         private void DisplayHabits()
         {
+            List<Habit> habits = dbManager.GetHabits();
 
+            Console.WriteLine("================== Habits List ===================");
+            Console.WriteLine($"| {"ID", -3}{"|", -9} {"Habit", -13}{"|", -5}{"Date", -8}|  {"Qty.", -5}|");
+            Console.WriteLine("--------------------------------------------------");
+            foreach (Habit habit in habits)
+            {
+                Console.WriteLine($"| {habit.Id,-3}{"|",-1} {habit.HabitName,-17}{"|",5}{habit.Date,-12}|  {habit.Quantity,-5}|");
+            }
+            Console.WriteLine("==================================================");
+
+            Console.WriteLine("\nPress any key to go back to menu...");
+            Console.ReadLine();
         }
     }
 }
