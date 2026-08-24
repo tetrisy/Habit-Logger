@@ -66,6 +66,11 @@ namespace Habit_Logger
             {
                 case 1:
                     dbManager.InsertHabit(CreateHabit());
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("The habit was saved sucesfully!");
+                    Console.ResetColor();
+                    Console.WriteLine("\nPress any key to go back to menu...");
+                    Console.ReadLine();
                     break;
                 case 2:
                     DisplayHabits();
@@ -126,6 +131,13 @@ namespace Habit_Logger
         private void DisplayHabits()
         {
             List<Habit> habits = dbManager.GetHabits();
+
+            if(habits.Count() == 0)
+            {
+                Console.WriteLine("There are no habit logged. Press any key to go back to menu...");
+                Console.ReadLine();
+                return;
+            }
 
             Console.WriteLine("================== Habits List ===================");
             Console.WriteLine($"| {"ID", -3}{"|", -9} {"Habit", -13}{"|", -5}{"Date", -8}|  {"Qty.", -5}|");

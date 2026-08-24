@@ -19,11 +19,9 @@ namespace Habit_Logger
         }
 
         public Habit(int id, string habitName, DateOnly date, int quantity)
+            : this(habitName, date, quantity)
         {
             Id = id;
-            HabitName = habitName;
-            Date = date;
-            Quantity = quantity;
         }
     }
 }
