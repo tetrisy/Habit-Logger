@@ -21,7 +21,7 @@ namespace Habit_Logger
             while (true)
             {
                 DisplayMenu();
-                choice = GetUserChoice();
+                choice = GetValidNumber("Choose an option (1-5): ");
                 if (choice == 0)
                 {
                     return;
@@ -43,21 +43,6 @@ namespace Habit_Logger
             Console.WriteLine($"{"|",-8}{"0. Exit",-41}|");
             Console.WriteLine($"|{"|",49}");
             Console.WriteLine("==================================================");
-        }
-
-        private int GetUserChoice()
-        {
-            Console.Write("Choose an option (1-5): ");
-            string? choice = Console.ReadLine();
-            int output;
-
-            while (!int.TryParse(choice, out output))
-            {
-                Console.Write("Invalid input. Pleae enter a valid number: ");
-                choice = Console.ReadLine();
-            }
-
-            return output;
         }
 
         private void ExecuteMenuOption(int choice)
