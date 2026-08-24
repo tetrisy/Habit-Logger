@@ -132,14 +132,8 @@ namespace Habit_Logger
         private void UpdateHabit()
         {
             DisplayHabits();
-            Console.Write("\nEnter ID of the habit you want to update: ");
-            string? input = Console.ReadLine();
-            int updateId;
-            while (!int.TryParse(input, out updateId))
-            {
-                Console.Write("Invalid ID. Pleae enter a valid ID number: ");
-                input = Console.ReadLine();
-            }
+
+            int updateId = GetValidNumber("\nEnter ID of the habit you want to update: ");
 
             string? newHabitName = GetValidString("Enter new habit name: ");
 
@@ -166,14 +160,8 @@ namespace Habit_Logger
         private void DeleteHabit()
         {
             DisplayHabits();
-            Console.Write("\nEnter ID of the habit you want to delete: ");
-            string? input = Console.ReadLine();
-            int deleteId;
-            while (!int.TryParse(input, out deleteId))
-            {
-                Console.Write("Invalid ID. Pleae enter a valid ID number: ");
-                input = Console.ReadLine();
-            }
+            int deleteId = GetValidNumber("\nEnter ID of the habit you want to delete: ");
+
             bool deleted = dbManager.EraseHabit(deleteId) > 0;
 
             if (deleted)
