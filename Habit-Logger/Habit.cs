@@ -17,5 +17,13 @@ namespace Habit_Logger
             Date = date;
             Quantity = quantity;
         }
+
+        public Habit(int id, string habitName, DateOnly date, int quantity)
+        {
+            Id = id;
+            HabitName = habitName;
+            Date = date;
+            Quantity = quantity;
+        }
     }
 }

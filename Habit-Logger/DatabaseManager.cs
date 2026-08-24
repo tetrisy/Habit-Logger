@@ -45,5 +45,12 @@ namespace Habit_Logger
 
             command.ExecuteNonQuery();
         }
+
+        public List<Habit> GetHabits()
+        {
+            using var connection = new SqliteConnection(DataSource);
+
+            return;
+        }
     }
 }

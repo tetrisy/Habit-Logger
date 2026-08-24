@@ -121,5 +121,10 @@ namespace Habit_Logger
 
             return new Habit(habitName, checkedDate, habitQuantity);
         }
+
+        private void DisplayHabits()
+        {
+
+        }
     }
 }
