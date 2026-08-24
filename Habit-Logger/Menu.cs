@@ -73,13 +73,13 @@ namespace Habit_Logger
                     Console.ReadLine();
                     break;
                 case 2:
-                    DisplayHabits();
+                    ShowHabitsMenu();
                     break;
                 case 3:
-                    // Delete habit
+                    // Update
                     break;
                 case 4:
-                    // ?
+                    DeleteHabit();
                     break;
                 case 0:
                     return;
@@ -147,9 +147,37 @@ namespace Habit_Logger
                 Console.WriteLine($"| {habit.Id,-3}{"|",-1} {habit.HabitName,-17}{"|",5}{habit.Date,-12}|  {habit.Quantity,-5}|");
             }
             Console.WriteLine("==================================================");
+        }
 
+        private void ShowHabitsMenu()
+        {
+            DisplayHabits();
             Console.WriteLine("\nPress any key to go back to menu...");
             Console.ReadLine();
         }
+
+        private void DeleteHabit()
+        {
+            DisplayHabits();
+            Console.Write("\nEnter ID of the habit you want to delete: ");
+            int deleteId = Convert.ToInt32(Console.ReadLine());
+            bool deleted = Convert.ToBoolean(dbManager.EraseHabit(deleteId));
+
+            if (deleted)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("The habit was deleted succesfully.");
+                Console.ResetColor();
+            } else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Habit with that ID was not found.");
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+
     }
 }

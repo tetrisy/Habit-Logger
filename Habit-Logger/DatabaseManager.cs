@@ -69,5 +69,20 @@ namespace Habit_Logger
 
             return habits;
         }
+
+        public int EraseHabit(int deleteId)
+        {
+            using var connection = new SqliteConnection(DataSource);
+
+            connection.Open();
+
+            using var command = connection.CreateCommand();
+            command.CommandText = @"
+                DELETE FROM habits WHERE Id = @Id
+            ";
+            command.Parameters.AddWithValue("@Id", deleteId);
+
+            return command.ExecuteNonQuery();
+        }
     }
 }
