@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO.Pipelines;
 using System.Text;
 using Microsoft.Data.Sqlite;
 
@@ -83,6 +84,45 @@ namespace Habit_Logger
             command.Parameters.AddWithValue("@Id", deleteId);
 
             return command.ExecuteNonQuery();
+        }
+
+        //public bool CheckIdExistence(int id)
+        //{
+        //    using var connection = new SqliteConnection(DataSource);
+
+        //    connection.Open();
+
+        //    using var command = connection.CreateCommand();
+        //    command.CommandText = @"
+        //        SELECT COUNT(1) FROM habits WHERE Id = @Id
+        //    ";
+        //    command.Parameters.AddWithValue("@Id", id);
+
+        //    long count = (long)command.ExecuteScalar()!;
+
+        //    return count > 0;
+        //}
+
+        public bool UpdateHabit(int id, string name, DateOnly date, int quantity)
+        {
+            using var connection = new SqliteConnection(DataSource);
+
+            connection.Open();
+
+            using var command = connection.CreateCommand();
+            command.CommandText = @"
+                UPDATE habits
+                SET HabitName = @HabitName, Date = @Date, Quantity = @Quantity
+                WHERE Id = @Id
+            ";
+            command.Parameters.AddWithValue("@Id", id);
+            command.Parameters.AddWithValue("@HabitName", name);
+            command.Parameters.AddWithValue("@Date", date.ToString("dd-MM-yyyy"));
+            command.Parameters.AddWithValue("@Quantity", quantity);
+
+            bool isUpadted = command.ExecuteNonQuery() > 0;
+
+            return isUpadted;
         }
     }
 }

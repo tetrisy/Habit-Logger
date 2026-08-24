@@ -76,7 +76,7 @@ namespace Habit_Logger
                     ShowHabitsMenu();
                     break;
                 case 3:
-                    // Update
+                    UpdateHabit();
                     break;
                 case 4:
                     DeleteHabit();
@@ -134,8 +134,7 @@ namespace Habit_Logger
 
             if(habits.Count() == 0)
             {
-                Console.WriteLine("There are no habit logged. Press any key to go back to menu...");
-                Console.ReadLine();
+                Console.WriteLine("There are no habits logged.");
                 return;
             }
 
@@ -156,12 +155,80 @@ namespace Habit_Logger
             Console.ReadLine();
         }
 
+        private void UpdateHabit()
+        {
+            DisplayHabits();
+            Console.Write("\nEnter ID of the habit you want to update: ");
+            string input = Console.ReadLine();
+            int updateId;
+            while (!int.TryParse(input, out updateId))
+            {
+                Console.Write("Invalid ID. Pleae enter a valid ID number: ");
+                input = Console.ReadLine();
+            }
+
+
+            Console.Write("Enter new habit name: ");
+            string? newHabitName = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(newHabitName))
+            {
+                Console.Write("Enter a valid habit name: ");
+                newHabitName = Console.ReadLine();
+            }
+
+            Console.Write("Enter new date (dd-mm-yyyy). Enter today for today: ");
+            string? newDateInput = Console.ReadLine();
+            DateOnly newCheckedDate;
+            if (newDateInput == "today")
+            {
+                newCheckedDate = DateOnly.FromDateTime(DateTime.Now);
+            }
+            else
+            {
+                while (!DateOnly.TryParseExact(newDateInput, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out newCheckedDate))
+                {
+                    Console.Write("Invalid input. Pleae enter a valid date: ");
+                    newDateInput = Console.ReadLine();
+                }
+            }
+
+            Console.Write("Enter new quantity: ");
+            input = Console.ReadLine();
+            int newHabitQuantity;
+            while (!int.TryParse(input, out newHabitQuantity))
+            {
+                Console.Write("Invalid input. Pleae enter a valid quantity: ");
+                input = Console.ReadLine();
+            }
+
+            if (dbManager.UpdateHabit(updateId, newHabitName, newCheckedDate, newHabitQuantity))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Habit updated succesfully.");
+                Console.ResetColor();
+            } else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Habit with that ID was not found.");
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
+        }
+
         private void DeleteHabit()
         {
             DisplayHabits();
             Console.Write("\nEnter ID of the habit you want to delete: ");
-            int deleteId = Convert.ToInt32(Console.ReadLine());
-            bool deleted = Convert.ToBoolean(dbManager.EraseHabit(deleteId));
+            string input = Console.ReadLine();
+            int deleteId;
+            while (!int.TryParse(input, out deleteId))
+            {
+                Console.Write("Invalid ID. Pleae enter a valid ID number: ");
+                input = Console.ReadLine();
+            }
+            bool deleted = dbManager.EraseHabit(deleteId) > 0;
 
             if (deleted)
             {
