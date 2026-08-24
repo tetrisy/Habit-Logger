@@ -93,39 +93,13 @@ namespace Habit_Logger
 
         private Habit CreateHabit()
         {
-            Console.Write("Enter habit name: ");
-            string? habitName = Console.ReadLine();
-            while(string.IsNullOrWhiteSpace(habitName))
-            {
-                Console.Write("Enter a valid habit name: ");
-                habitName = Console.ReadLine();
-            }
+            string? habitName = GetValidString("Enter habit name: ");
 
-            Console.Write("Enter date (dd-mm-yyyy). Enter today for today: ");
-            string? input = Console.ReadLine();
-            DateOnly checkedDate;
-            if (input == "today")
-            {
-                checkedDate = DateOnly.FromDateTime(DateTime.Now);
-            }else
-            {
-                while (!DateOnly.TryParseExact(input, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out checkedDate))
-                {
-                    Console.Write("Invalid input. Pleae enter a valid date: ");
-                    input = Console.ReadLine();
-                }
-            }
+            DateOnly date = GetValidDate("Enter date (dd-mm-yyyy). Enter today for today: ");
 
-            Console.Write("Enter quantity: ");
-            input = Console.ReadLine();
-            int habitQuantity;
-            while (!int.TryParse(input, out habitQuantity))
-            {
-                Console.Write("Invalid input. Pleae enter a valid quantity: ");
-                input = Console.ReadLine();
-            }
+            int habitQuantity = GetValidNumber("Enter quantity: ");
 
-            return new Habit(habitName, checkedDate, habitQuantity);
+            return new Habit(habitName, date, habitQuantity);
         }
 
         private void DisplayHabits()
@@ -159,7 +133,7 @@ namespace Habit_Logger
         {
             DisplayHabits();
             Console.Write("\nEnter ID of the habit you want to update: ");
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             int updateId;
             while (!int.TryParse(input, out updateId))
             {
@@ -167,41 +141,13 @@ namespace Habit_Logger
                 input = Console.ReadLine();
             }
 
+            string? newHabitName = GetValidString("Enter new habit name: ");
 
-            Console.Write("Enter new habit name: ");
-            string? newHabitName = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(newHabitName))
-            {
-                Console.Write("Enter a valid habit name: ");
-                newHabitName = Console.ReadLine();
-            }
+            DateOnly newDate = GetValidDate("Enter new date (dd-mm-yyyy). Enter today for today: ");
 
-            Console.Write("Enter new date (dd-mm-yyyy). Enter today for today: ");
-            string? newDateInput = Console.ReadLine();
-            DateOnly newCheckedDate;
-            if (newDateInput == "today")
-            {
-                newCheckedDate = DateOnly.FromDateTime(DateTime.Now);
-            }
-            else
-            {
-                while (!DateOnly.TryParseExact(newDateInput, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out newCheckedDate))
-                {
-                    Console.Write("Invalid input. Pleae enter a valid date: ");
-                    newDateInput = Console.ReadLine();
-                }
-            }
+            int newHabitQuantity = GetValidNumber("Enter new quantity: ");
 
-            Console.Write("Enter new quantity: ");
-            input = Console.ReadLine();
-            int newHabitQuantity;
-            while (!int.TryParse(input, out newHabitQuantity))
-            {
-                Console.Write("Invalid input. Pleae enter a valid quantity: ");
-                input = Console.ReadLine();
-            }
-
-            if (dbManager.UpdateHabit(updateId, newHabitName, newCheckedDate, newHabitQuantity))
+            if (dbManager.UpdateHabit(updateId, newHabitName, newDate, newHabitQuantity))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Habit updated succesfully.");
@@ -221,7 +167,7 @@ namespace Habit_Logger
         {
             DisplayHabits();
             Console.Write("\nEnter ID of the habit you want to delete: ");
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             int deleteId;
             while (!int.TryParse(input, out deleteId))
             {
@@ -246,5 +192,52 @@ namespace Habit_Logger
             Console.ReadKey();
         }
 
+        private string GetValidString(string prompt)
+        {
+            Console.Write(prompt);
+            string? text = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(text))
+            {
+                Console.Write("Enter a valid habit name: ");
+                text = Console.ReadLine();
+            }
+
+            return text;
+        }
+
+        private DateOnly GetValidDate(string prompt)
+        {
+            Console.Write(prompt);
+            string? dateInput = Console.ReadLine();
+            DateOnly checkedDate;
+            if (dateInput == "today")
+            {
+                checkedDate = DateOnly.FromDateTime(DateTime.Now);
+            }
+            else
+            {
+                while (!DateOnly.TryParseExact(dateInput, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out checkedDate))
+                {
+                    Console.Write("Invalid input. Pleae enter a valid date: ");
+                    dateInput = Console.ReadLine();
+                }
+            }
+
+            return checkedDate;
+        }
+
+        private int GetValidNumber(string prompt)
+        {
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
+            int number;
+            while (!int.TryParse(input, out number))
+            {
+                Console.Write("Invalid input. Pleae enter a valid number: ");
+                input = Console.ReadLine();
+            }
+
+            return number;
+        }
     }
 }
