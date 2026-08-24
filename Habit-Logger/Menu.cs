@@ -36,9 +36,10 @@ namespace Habit_Logger
             Console.WriteLine("============== Habit Logger ==============");
             Console.WriteLine($"|{"|", 41}");
             Console.WriteLine($"{"|",-8}{"1. Add new habbit",-33}|");
-            Console.WriteLine($"{"|",-8}{"1. as",-33}|");
-            Console.WriteLine($"{"|",-8}{"1. as",-33}|");
-            Console.WriteLine($"{"|",-8}{"1. as",-33}|");
+            Console.WriteLine($"{"|",-8}{"2. View habits",-33}|");
+            Console.WriteLine($"{"|",-8}{"3. Update habit",-33}|");
+            Console.WriteLine($"{"|",-8}{"4. Delete habit",-33}|");
+            Console.WriteLine($"{"|",-8}{"0. Exit",-33}|");
             Console.WriteLine($"|{"|",41}");
             Console.WriteLine("==========================================");
         }
@@ -63,7 +64,7 @@ namespace Habit_Logger
             switch (choice)
             {
                 case 1:
-                   // dbManager.InsertHabit(CreateHabit());
+                    dbManager.InsertHabit(CreateHabit());
                     break;
                 case 2:
                     // View habits

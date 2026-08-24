@@ -27,14 +27,23 @@ namespace Habit_Logger
             command.ExecuteNonQuery();
         }
 
-        //public void InsertHabit(Habit habit)
-        //{
-        //    using var connection = new SqliteConnection(DataSource);
+        public void InsertHabit(Habit habit)
+        {
+            using var connection = new SqliteConnection(DataSource);
 
-        //    connection.Open();
+            connection.Open();
 
-        //    using var command = connection.CreateCommand();
-        //    command.CommandText = @""
-        //}
+            using var command = connection.CreateCommand();
+            command.CommandText = @"
+                INSERT INTO habits (HabitName, Date, Quantity)
+                VALUES (@HabitName, @Date, @Quantity)
+            ";
+
+            command.Parameters.AddWithValue("@HabitName", habit.HabitName);
+            command.Parameters.AddWithValue("@Date", habit.Date.ToString("dd-MM-yyyy"));
+            command.Parameters.AddWithValue("@Quantity", habit.Quantity);
+
+            command.ExecuteNonQuery();
+        }
     }
 }
