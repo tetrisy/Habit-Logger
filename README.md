@@ -1,25 +1,20 @@
 # 🏋️ Habit Logger
 
-    A console-based CRUD application built in **C# (.NET 10)** using **pure ADO.NET** and **SQLite**. Designed with a focus on **Object-Oriented Programming (OOP)** principles, clean architecture, and defensive programming.
+  A console-based CRUD application built in **C# (.NET 10)** using **pure ADO.NET** and **SQLite**. Designed with a focus on **Object-Oriented Programming (OOP)** principles, clean architecture, and defensive programming.
 
-    ---
-
-    ## 📌 Features
-
-    - **Full CRUD Functionality:**
-      - **Create:** Log new habits with name, date, and quantity.
-      - **Read:** Display all logged habits in a formatted console table.
-      - **Update:** Modify existing habit entries by ID.
-      - **Delete:** Remove habits by ID with verification.
-    - **Robust Input Validation:**
-      - Strict date parsing using `DateOnly.TryParseExact` (`dd-MM-yyyy`).
-      - Convenient `"today"` shortcut for quick logging.
-      - Safe numeric parsing (`int.TryParse`) preventing application crashes.
-    - **Visual Polish:**
-      - Custom border alignment formatting for clean console rendering.
-      - Color-coded user feedback (success/error alerts).
-
-    ---
+  ## 📌 Features
+  - **Full CRUD Functionality:**
+    - **Create:** Log new habits with name, date, and quantity.
+    - **Read:** Display all logged habits in a formatted console table.
+    - **Update:** Modify existing habit entries by ID.
+    - **Delete:** Remove habits by ID with verification.
+  - **Robust Input Validation:**
+    - Strict date parsing using `DateOnly.TryParseExact` (`dd-MM-yyyy`).
+    - Convenient `"today"` shortcut for quick logging.
+    - Safe numeric parsing (`int.TryParse`) preventing application crashes.
+  - **Visual Polish:**
+    - Custom border alignment formatting for clean console rendering.
+    - Color-coded user feedback (success/error alerts).
 
   ## 🔒 Security & Best Practices
 
