@@ -18,24 +18,24 @@
 
   ## 🔒 Security & Best Practices
 
-  • SQL Injection Prevention: 100% parameterized SQL queries (@HabitName, @Date, @Quantity) using SqliteCommand.
+  - SQL Injection Prevention: 100% parameterized SQL queries (@HabitName, @Date, @Quantity) using SqliteCommand.
   Parameters.
-  • Resource Management: Deterministic disposal of unmanaged database connections, commands, and data readers using
+  - Resource Management: Deterministic disposal of unmanaged database connections, commands, and data readers using
   using var statements (IDisposable).
-  • Clean Code (DRY): Reusable validation helper methods (GetValidString, GetValidDate, GetValidNumber) to eliminate
+  - Clean Code (DRY): Reusable validation helper methods (GetValidString, GetValidDate, GetValidNumber) to eliminate
   code duplication.
 
   ## 🛠️ Technologies Used
 
-  • Language: C# 13 / .NET 10
-  • Database: SQLite
-  • Data Access: ADO.NET (Microsoft.Data.Sqlite)
+  - Language: C# 13 / .NET 10
+  - Database: SQLite
+  - Data Access: ADO.NET (Microsoft.Data.Sqlite)
 
   ## 🚀 Getting Started
 
   ### Prerequisites
 
-  • .NET 10 SDK https://dotnet.microsoft.com/download installed.
+  - .NET 10 SDK https://dotnet.microsoft.com/download installed.
 
   ### Running the Application
 
