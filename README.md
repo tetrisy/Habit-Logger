@@ -24,13 +24,13 @@
   using var statements (IDisposable).
   • Clean Code (DRY): Reusable validation helper methods (GetValidString, GetValidDate, GetValidNumber) to eliminate
   code duplication.
-  ──────
+
   ## 🛠️ Technologies Used
 
   • Language: C# 13 / .NET 10
   • Database: SQLite
   • Data Access: ADO.NET (Microsoft.Data.Sqlite)
-  ──────
+
   ## 🚀 Getting Started
 
   ### Prerequisites
