@@ -50,7 +50,7 @@
 
 
   (The SQLite database file habits.db and the required table will be created automatically on startup).
-  ──────
+
   ## 💡 Key Takeaways
 
   Building this project with low-level ADO.NET provided a deep understanding of database connection lifecycles,
